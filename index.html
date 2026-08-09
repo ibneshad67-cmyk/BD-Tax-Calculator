@@ -448,7 +448,7 @@ function calculate(){
   var slabDetail=result.detail;
   var netTax=Math.max(0,grossTax-eligibleRebate);
   var minTax=parseInt(document.getElementById('area').value);
-  var taxPayable=Math.max(netTax,minTax);
+  var taxPayable=grossTax===0?0:Math.max(netTax,minTax);
   var balance=taxPayable-totalAIT;
   var perMonth=taxPayable/12;
   var aitPaidMonths=MONTHS.filter(function(m){return v('ait_'+m)>0;}).length;
