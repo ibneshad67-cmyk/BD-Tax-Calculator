@@ -420,7 +420,7 @@ function goStep(n){
     var num=document.getElementById('snum'+i);
     btn.className='step-btn';
     if(i===n){btn.classList.add('active');num.textContent=i;}
-    else if(i<n){btn.classList.add('done');num.textContent='v';}
+    else if(i<n){btn.classList.add('done');num.textContent=i;}
     else{num.textContent=i;}
   });
   updateThreshold();
