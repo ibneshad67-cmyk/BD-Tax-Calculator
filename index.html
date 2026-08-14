@@ -139,7 +139,7 @@ input[type=number]{-moz-appearance:textfield}
     <div class="header-logo">
       <div class="logo-box">BD</div>
       <div>
-        <div class="header-title">Income Tax Calculator</div>
+        <div class="header-title">Bangladesh Income Tax Calculator</div>
         <div class="header-subtitle">National Board of Revenue &mdash; Bangladesh</div>
       </div>
     </div>
@@ -254,7 +254,8 @@ input[type=number]{-moz-appearance:textfield}
       <div class="card-header">
         <div class="card-title">Bonus &amp; other income</div>
       </div>
-      <div class="grid3">
+
+      <div class="grid2" style="margin-bottom:1rem">
         <div class="field">
           <label>Eid ul Fitr bonus (Tk.)</label>
           <input type="number" id="bonusEid1" placeholder="0" min="0">
@@ -263,11 +264,28 @@ input[type=number]{-moz-appearance:textfield}
           <label>Eid ul Azha bonus (Tk.)</label>
           <input type="number" id="bonusEid2" placeholder="0" min="0">
         </div>
-        <div class="field">
-          <label>Other bonus / income (Tk.)</label>
-          <input type="number" id="bonusOther" placeholder="0" min="0">
-          <div class="hint">Performance, other festive bonuses, etc.</div>
+      </div>
+
+      <div style="border-top:1px solid #f1f5f9;padding-top:1rem">
+        <div style="font-size:12px;font-weight:600;color:#374151;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px">Other bonuses &amp; allowances</div>
+        <div id="otherBonusRows">
+          <div class="other-bonus-row" style="display:grid;grid-template-columns:1fr 150px 32px;gap:8px;align-items:center;margin-bottom:8px">
+            <input type="text" placeholder="Description (e.g. Arrear salary)" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;width:100%">
+            <input type="number" placeholder="Amount (Tk.)" min="0" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:right;font-family:'Inter',sans-serif;width:100%">
+            <button onclick="removeOtherBonus(this)" style="width:32px;height:32px;border:none;background:#fee2e2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">&#x2715;</button>
+          </div>
+          <div class="other-bonus-row" style="display:grid;grid-template-columns:1fr 150px 32px;gap:8px;align-items:center;margin-bottom:8px">
+            <input type="text" placeholder="Description (e.g. Education allowance)" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;width:100%">
+            <input type="number" placeholder="Amount (Tk.)" min="0" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:right;font-family:'Inter',sans-serif;width:100%">
+            <button onclick="removeOtherBonus(this)" style="width:32px;height:32px;border:none;background:#fee2e2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">&#x2715;</button>
+          </div>
+          <div class="other-bonus-row" style="display:grid;grid-template-columns:1fr 150px 32px;gap:8px;align-items:center;margin-bottom:8px">
+            <input type="text" placeholder="Description (e.g. Employee Share Schemes)" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;width:100%">
+            <input type="number" placeholder="Amount (Tk.)" min="0" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:right;font-family:'Inter',sans-serif;width:100%">
+            <button onclick="removeOtherBonus(this)" style="width:32px;height:32px;border:none;background:#fee2e2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">&#x2715;</button>
+          </div>
         </div>
+        <button onclick="addOtherBonus()" style="padding:7px 16px;background:#eff6ff;color:#1e40af;border:1.5px dashed #bfdbfe;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:4px">+ Add item</button>
       </div>
     </div>
 
@@ -385,12 +403,12 @@ function validatePct(){
   document.getElementById('pctWarn').style.display=ok?'none':'block';
 }
 
-function buildMonthRows(){
+function addOtherBonus(){var container=document.getElementById('otherBonusRows');var row=document.createElement('div');row.className='other-bonus-row';row.style='display:grid;grid-template-columns:1fr 150px 32px;gap:8px;align-items:center;margin-bottom:8px';row.innerHTML='<input type="text" placeholder="Description" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:Inter,sans-serif;width:100%"><input type="number" placeholder="Amount (Tk.)" min="0" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:right;font-family:Inter,sans-serif;width:100%"><button onclick="removeOtherBonus(this)" style="width:32px;height:32px;border:none;background:#fee2e2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:16px">function buildMonthRows(){#x2715;</button>';container.appendChild(row);}function removeOtherBonus(btn){var row=btn.parentElement;if(document.querySelectorAll('#otherBonusRows .other-bonus-row').length>1)row.remove();}function buildMonthRows(){
   var tbody=document.getElementById('monthRows');
   tbody.innerHTML='';
   MONTHS.forEach(function(m){
     var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+m+'</td><td><input type="text" inputmode="numeric" id="sal_'+m+'" placeholder="0" min="0"></td><td><input type="text" inputmode="numeric" id="ait_'+m+'" placeholder="0" min="0"></td>';
+    tr.innerHTML='<td>'+m+'</td><td><input type="number" id="sal_'+m+'" placeholder="0" min="0"></td><td><input type="number" id="ait_'+m+'" placeholder="0" min="0"></td>';
     tbody.appendChild(tr);
   });
 }
@@ -428,7 +446,7 @@ function calculate(){
   var threshold=getThreshold();
   var totalSalary=0,totalAIT=0;
   MONTHS.forEach(function(m){totalSalary+=v('sal_'+m);totalAIT+=v('ait_'+m);});
-  var totalBonus=v('bonusEid1')+v('bonusEid2')+v('bonusOther');
+  var totalOther=0;document.querySelectorAll('#otherBonusRows .other-bonus-row').forEach(function(row){var amt=parseFloat((row.querySelectorAll('input')[1].value||'0').replace(/,/g,''))||0;totalOther+=amt;});var totalBonus=v('bonusEid1')+v('bonusEid2')+totalOther;
   var totalIncome=totalSalary+totalBonus;
   var exempted=Math.min(totalIncome/3,500000);
   var taxableIncome=Math.max(0,totalIncome-exempted);
@@ -448,7 +466,7 @@ function calculate(){
   var slabDetail=result.detail;
   var netTax=Math.max(0,grossTax-eligibleRebate);
   var minTax=parseInt(document.getElementById('area').value);
-  var taxPayable=grossTax===0?0:Math.max(netTax,minTax);
+  var taxPayable=Math.max(netTax,minTax);
   var balance=taxPayable-totalAIT;
   var perMonth=taxPayable/12;
   var aitPaidMonths=MONTHS.filter(function(m){return v('ait_'+m)>0;}).length;
