@@ -518,6 +518,7 @@ function calculate(){
   var taxableAgri=Math.max(0,oiAgri-500000);
   var dividendTax=oiDividend*0.15;
   var taxableIncome=Math.max(0,totalIncome-exempted)+oiBusiness+taxableRental+taxableAgri;
+  var grandTotalIncome=totalIncome+oiBusiness+taxableRental+taxableAgri;
 
   var totalInv=0;
   for(var i=1;i<=10;i++){totalInv+=Math.min(v('inv'+i),INV_CAPS[i-1]);}
@@ -560,7 +561,7 @@ function calculate(){
       '<div style="font-size:12px;opacity:0.6">Financial Year 2026-27 &nbsp;&middot;&nbsp; Assessment Year 2027-28</div>'+
     '</div>'+
     '<div class="result-summary">'+
-      '<div class="metric"><div class="metric-label">Total income</div><div class="metric-value">'+fmt(totalIncome)+'</div><div class="metric-sub">Salary + bonus</div></div>'+
+      '<div class="metric"><div class="metric-label">Total income</div><div class="metric-value">'+fmt(grandTotalIncome)+'</div><div class="metric-sub">All sources</div></div>'+
       '<div class="metric"><div class="metric-label">Taxable income</div><div class="metric-value blue">'+fmt(taxableIncome)+'</div><div class="metric-sub">After exemption</div></div>'+
       '<div class="metric"><div class="metric-label">Tax rebate</div><div class="metric-value green">- '+fmt(eligibleRebate)+'</div><div class="metric-sub">'+winnerLabels[winnerIdx]+'</div></div>'+
       '<div class="metric"><div class="metric-label">Total tax payable</div><div class="metric-value red">'+fmt(taxPayable)+'</div><div class="metric-sub">Full year</div></div>'+
