@@ -573,20 +573,20 @@ function calculate(){
 
   var html=
     '<div class="card" style="background:linear-gradient(135deg,#1e3a8a,#1e40af);border:none;color:#fff;margin-bottom:1.25rem">'+
-      '<div style="font-size:13px;opacity:0.75;margin-bottom:4px">Tax summary for '+name+'</div>'+
+      '<div style="font-size:13px;opacity:0.75;margin-bottom:4px">Tax Summary for '+name+'</div>'+
       '<div style="font-size:12px;opacity:0.6">Financial Year 2026-27 &nbsp;&middot;&nbsp; Assessment Year 2027-28</div>'+
     '</div>'+
     '<div class="result-summary">'+
       '<div class="metric"><div class="metric-label">Total income</div><div class="metric-value">'+fmt(grandTotalIncome)+'</div><div class="metric-sub">All sources</div></div>'+
-      '<div class="metric"><div class="metric-label">Taxable income</div><div class="metric-value blue">'+fmt(taxableIncome)+'</div><div class="metric-sub">After exemption</div></div>'+
+      '<div class="metric"><div class="metric-label">Taxable Income</div><div class="metric-value blue">'+fmt(taxableIncome)+'</div><div class="metric-sub">After exemption</div></div>'+
       '<div class="metric"><div class="metric-label">Tax rebate</div><div class="metric-value green">- '+fmt(eligibleRebate)+'</div><div class="metric-sub">'+winnerLabels[winnerIdx]+'</div></div>'+
-      '<div class="metric"><div class="metric-label">Total tax payable</div><div class="metric-value red">'+fmt(taxPayable)+'</div><div class="metric-sub">Full year</div></div>'+
+      '<div class="metric"><div class="metric-label">Total Tax Payable</div><div class="metric-value red">'+fmt(taxPayable)+'</div><div class="metric-sub">Full year</div></div>'+
       '<div class="metric"><div class="metric-label">Per month deduction</div><div class="metric-value orange">'+fmt(perMonth)+'</div><div class="metric-sub">12-month basis</div></div>'+
       '<div class="metric"><div class="metric-label">AIT paid so far</div><div class="metric-value">'+fmt(totalAIT)+'</div><div class="metric-sub">'+aitPaidMonths+' month'+(aitPaidMonths!==1?'s':'')+'</div></div>'+
       (grossTax>0?'<div class="metric"><div class="metric-label">Additional investment needed</div><div class="metric-value '+(additionalNeeded>0?'red':'green')+'">'+( additionalNeeded>0?fmt(additionalNeeded):'Tk. 0')+'</div><div class="metric-sub">'+(additionalNeeded>0?'To reach min. tax':'Already optimised &#10003;')+'</div></div>':'')+
     '</div>'+
     '<div class="breakdown-card">'+
-      '<div class="breakdown-header">Tax computation breakdown</div>'+
+      '<div class="breakdown-header">Tax Computation Breakdown</div>'+
       '<div class="breakdown-body">'+
         '<div class="breakdown-row"><span class="lbl">Total salary (12 months)</span><span class="val">'+fmt(totalSalary)+'</span></div>'+
         bonusRow+
@@ -595,9 +595,9 @@ function calculate(){
         (oiRental>0?'<div class="breakdown-row"><span class="lbl">Rental income (70% taxable after 30% deduction)</span><span class="val">'+fmt(taxableRental)+'</span></div>':'')+
         (taxableAgri>0?'<div class="breakdown-row"><span class="lbl">Agricultural income (above Tk. 5,00,000 exemption)</span><span class="val">'+fmt(taxableAgri)+'</span></div>':'')+
         '<div class="breakdown-row"><span class="lbl">Exempted income (lower of 1/3 or Tk. 5,00,000)</span><span class="val green">- '+fmt(exempted)+'</span></div>'+
-        '<div class="breakdown-row total-row"><span class="lbl">Taxable income</span><span class="val blue" style="font-size:15px">'+fmt(taxableIncome)+'</span></div>'+
+        '<div class="breakdown-row total-row"><span class="lbl">Taxable Income</span><span class="val blue" style="font-size:15px">'+fmt(taxableIncome)+'</span></div>'+
         '<div class="slab-section"><div class="slab-title">Tax slab calculation &nbsp;&middot;&nbsp; Tax-free threshold: '+fmt(threshold)+'</div>'+slabRows+'</div>'+
-        '<div class="breakdown-row total-row"><span class="lbl">Gross tax</span><span class="val blue" style="font-size:15px">'+fmt(grossTax)+'</span></div>'+
+        '<div class="breakdown-row total-row"><span class="lbl">Gross Tax</span><span class="val blue" style="font-size:15px">'+fmt(grossTax)+'</span></div>'+
         '<div class="breakdown-row"><span class="lbl">Tax rebate ('+winnerLabels[winnerIdx]+' applied)</span><span class="val green">- '+fmt(eligibleRebate)+'</span></div>'+
         '<div class="rebate-detail-box">'+
           '<div class="rebate-detail-row'+(winnerIdx===0?' winner':'')+'">3% of taxable income = '+fmt(rebateA)+(winnerIdx===0?' &larr; applied':'')+'</div>'+
@@ -609,11 +609,11 @@ function calculate(){
         (dividendTax>0?'<div class="breakdown-row"><span class="lbl">Dividend tax (Final Tax @ 15%)</span><span class="val orange">+ '+fmt(dividendTax)+'</span></div>':'')+
         (oiFinancial>0?'<div class="breakdown-row"><span class="lbl">Other financial assets income (Final Tax deducted at source)</span><span class="val" style="color:#6b7280">'+fmt(oiFinancial)+' (excl. from slab)</span></div>':'')+
         (oiExempt>0?'<div class="breakdown-row"><span class="lbl">Tax exempted income (reference only)</span><span class="val" style="color:#6b7280">'+fmt(oiExempt)+' (not taxed)</span></div>':'')+
-        '<div class="breakdown-row total-row"><span class="lbl">Total tax payable</span><span class="val red" style="font-size:16px">'+fmt(taxPayable)+'</span></div>'+
+        '<div class="breakdown-row total-row"><span class="lbl">Total Tax Payable</span><span class="val red" style="font-size:16px">'+fmt(taxPayable)+'</span></div>'+
       '</div>'+
     '</div>'+
     '<div class="ait-status'+(balance>=0?' pending':'')+'">'+
-      '<div class="ait-status-title">'+(balance>=0?'Balance tax pending':'Tax refund due')+'</div>'+
+      '<div class="ait-status-title">'+(balance>=0?'Balance Tax Pending':'Tax refund due')+'</div>'+
       '<div class="ait-amount">'+(balance>=0?fmt(balance):'('+fmt(Math.abs(balance))+')')+'</div>'+
       '<div class="ait-sub">'+(balance>=0?'Remaining tax to be paid':'Refundable - claim in your tax return')+'</div>'+
       suggRow+
