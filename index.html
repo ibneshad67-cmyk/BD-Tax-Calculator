@@ -567,7 +567,7 @@ function calculate(){
       '<div class="metric"><div class="metric-label">Total tax payable</div><div class="metric-value red">'+fmt(taxPayable)+'</div><div class="metric-sub">Full year</div></div>'+
       '<div class="metric"><div class="metric-label">Per month deduction</div><div class="metric-value orange">'+fmt(perMonth)+'</div><div class="metric-sub">12-month basis</div></div>'+
       '<div class="metric"><div class="metric-label">AIT paid so far</div><div class="metric-value">'+fmt(totalAIT)+'</div><div class="metric-sub">'+aitPaidMonths+' month'+(aitPaidMonths!==1?'s':'')+'</div></div>'+
-      (grossTax>0?'<div class="metric"><div class="metric-label">Additional inv. needed</div><div class="metric-value '+(additionalNeeded>0?'red':'green')+'">'+( additionalNeeded>0?fmt(additionalNeeded):'Tk. 0')+'</div><div class="metric-sub">'+(additionalNeeded>0?'To reach min. tax':'Already optimised &#10003;')+'</div></div>':'')+
+      (grossTax>0?'<div class="metric"><div class="metric-label">Additional investment needed</div><div class="metric-value '+(additionalNeeded>0?'red':'green')+'">'+( additionalNeeded>0?fmt(additionalNeeded):'Tk. 0')+'</div><div class="metric-sub">'+(additionalNeeded>0?'To reach min. tax':'Already optimised &#10003;')+'</div></div>':'')+
     '</div>'+
     '<div class="breakdown-card">'+
       '<div class="breakdown-header">Tax computation breakdown</div>'+
