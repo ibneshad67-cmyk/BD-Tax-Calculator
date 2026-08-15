@@ -523,13 +523,13 @@ function calculate(){
 
     var suggBox='';
   if(grossTax===0){
-    suggBox='<div class="inv-suggestion-box"><div class="inv-suggestion-title">document.getElementById('resultsContent').innerHTML=html;#128200; Recommended Investment</div><div class="inv-already-ok">document.getElementById('resultsContent').innerHTML=html;#10003; Your gross tax is Tk. 0. No investment needed to reduce tax further.</div></div>';
+    suggBox='<div class="inv-suggestion-box"><div class="inv-suggestion-title">&#128200; Recommended Investment</div><div class="inv-already-ok">&#10003; Your gross tax is Tk. 0. No investment needed to reduce tax further.</div></div>';
   } else {
     var addlLine=additionalNeeded>0
       ?'<div class="inv-suggestion-row"><span class="s-label">Additional investment still needed</span><span class="s-val red">Tk. '+fmt(additionalNeeded)+'</span></div>'
-      :'<div class="inv-already-ok">document.getElementById('resultsContent').innerHTML=html;#10003; You have already invested enough. No additional investment needed.</div>';
+      :'<div class="inv-already-ok">&#10003; You have already invested enough. No additional investment needed.</div>';
     suggBox='<div class="inv-suggestion-box">'
-      +'<div class="inv-suggestion-title">document.getElementById('resultsContent').innerHTML=html;#128200; Recommended Total Investment</div>'
+      +'<div class="inv-suggestion-title">&#128200; Recommended Total Investment</div>'
       +'<div class="inv-suggestion-row"><span class="s-label">Recommended total investment</span><span class="s-val">Tk. '+fmt(recommendedInv)+'</span></div>'
       +'<div class="inv-suggestion-row"><span class="s-label">Your current eligible investment</span><span class="s-val blue">Tk. '+fmt(totalInv)+'</span></div>'
       +addlLine
