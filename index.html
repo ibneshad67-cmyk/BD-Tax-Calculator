@@ -221,7 +221,7 @@ input[type=number]{-moz-appearance:textfield}
       </div>
       <div class="field" id="disabledKidsField" style="display:none">
         <label>Number of disabled dependents</label>
-        <input type="number" id="disabledKids" value="1" min="1" max="10" onchange="updateThreshold()">
+        <input type="number" id="disabledKids" value="1" min="1" max="10" onchange="updateThreshold()" onwheel="this.blur()">
         <div class="hint">Each dependent adds Tk. 50,000 to your tax-free threshold. Only one parent may claim this.</div>
       </div>
       <div class="field">
@@ -254,10 +254,10 @@ input[type=number]{-moz-appearance:textfield}
           <tr><th>Component</th><th>% of gross</th><th>Taxable</th></tr>
         </thead>
         <tbody>
-          <tr><td>Basic pay</td><td><input type="number" id="pBasic" value="60" min="0" max="100" onchange="validatePct()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>House rent allowance</td><td><input type="number" id="pHouse" value="30" min="0" max="100" onchange="validatePct()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>Medical allowance</td><td><input type="number" id="pMedical" value="5" min="0" max="100" onchange="validatePct()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>Conveyance allowance</td><td><input type="number" id="pConvey" value="5" min="0" max="100" onchange="validatePct()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>Basic pay</td><td><input type="number" id="pBasic" value="60" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>House rent allowance</td><td><input type="number" id="pHouse" value="30" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>Medical allowance</td><td><input type="number" id="pMedical" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>Conveyance allowance</td><td><input type="number" id="pConvey" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
         </tbody>
       </table>
       <div class="pct-total-row" id="pctTotal">Total: <strong style="color:#059669">100%</strong></div>
@@ -285,11 +285,11 @@ input[type=number]{-moz-appearance:textfield}
       <div class="grid2" style="margin-bottom:1rem">
         <div class="field">
           <label>Eid ul Fitr bonus (Tk.)</label>
-          <input type="number" id="bonusEid1" placeholder="0" min="0">
+          <input type="text" inputmode="numeric" id="bonusEid1" placeholder="0">
         </div>
         <div class="field">
           <label>Eid ul Azha bonus (Tk.)</label>
-          <input type="number" id="bonusEid2" placeholder="0" min="0">
+          <input type="text" inputmode="numeric" id="bonusEid2" placeholder="0">
         </div>
       </div>
 
@@ -380,43 +380,43 @@ input[type=number]{-moz-appearance:textfield}
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">1</span>Life insurance premium / contractual deferred annuity</div><div class="invest-hint">Eligible up to 10% of policy sum assured. Enter the eligible portion only.</div></div>
-        <input class="invest-input" type="number" id="inv1" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv1" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">2</span>Deposit pension scheme (DPS)</div><div class="invest-hint">Max Tk. 1,20,000/year eligible for rebate.</div></div>
-        <input class="invest-input" type="number" id="inv2" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv2" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">3</span>Govt. securities / mutual fund / ETF / Sanchayapatra</div><div class="invest-hint">Max Tk. 5,00,000 eligible per category.</div></div>
-        <input class="invest-input" type="number" id="inv3" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv3" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">4</span>Listed securities &mdash; DSE / CSE (BO account)</div><div class="invest-hint">Max Tk. 5,00,000 eligible.</div></div>
-        <input class="invest-input" type="number" id="inv4" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv4" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">5</span>Provident fund (Provident Fund Act 1925)</div><div class="invest-hint">Actual contribution. No monetary cap.</div></div>
-        <input class="invest-input" type="number" id="inv5" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv5" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">6</span>Recognized provident fund (employee + employer)</div><div class="invest-hint">Combined employee and employer contribution. No cap.</div></div>
-        <input class="invest-input" type="number" id="inv6" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv6" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">7</span>Approved pension fund</div><div class="invest-hint">Actual eligible contribution per approved scheme.</div></div>
-        <input class="invest-input" type="number" id="inv7" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv7" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">8</span>Benevolent fund &amp; group insurance premium</div><div class="invest-hint">Actual employee contribution.</div></div>
-        <input class="invest-input" type="number" id="inv8" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv8" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">9</span>Zakat fund</div><div class="invest-hint">Actual eligible donation to approved Zakat fund.</div></div>
-        <input class="invest-input" type="number" id="inv9" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv9" placeholder="0">
       </div>
       <div class="invest-item">
         <div><div class="invest-label"><span class="invest-num">10</span>Others</div><div class="invest-hint">Any other NBR-approved investment or contribution.</div></div>
-        <input class="invest-input" type="number" id="inv10" placeholder="0" min="0">
+        <input class="invest-input" type="text" inputmode="numeric" id="inv10" placeholder="0">
       </div>
     </div>
     <div class="btn-row">
@@ -478,12 +478,12 @@ function validatePct(){
   document.getElementById('pctWarn').style.display=ok?'none':'block';
 }
 
-function addOtherBonus(){var container=document.getElementById('otherBonusRows');var row=document.createElement('div');row.className='other-bonus-row';row.style='display:grid;grid-template-columns:1fr 150px 32px;gap:8px;align-items:center;margin-bottom:8px';row.innerHTML='<input type="text" placeholder="Description" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:Inter,sans-serif;width:100%"><input type="number" placeholder="Amount (Tk.)" min="0" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:right;font-family:Inter,sans-serif;width:100%"><button onclick="removeOtherBonus(this)" style="width:32px;height:32px;border:none;background:#fee2e2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:16px">&#x2715;</button>';container.appendChild(row);}function removeOtherBonus(btn){var row=btn.parentElement;if(document.querySelectorAll('#otherBonusRows .other-bonus-row').length>1)row.remove();}function buildMonthRows(){
+function addOtherBonus(){var container=document.getElementById('otherBonusRows');var row=document.createElement('div');row.className='other-bonus-row';row.style='display:grid;grid-template-columns:1fr 150px 32px;gap:8px;align-items:center;margin-bottom:8px';row.innerHTML='<input type="text" placeholder="Description" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:Inter,sans-serif;width:100%"><input type="text" inputmode="numeric" placeholder="Amount (Tk.)" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:right;font-family:Inter,sans-serif;width:100%"><button onclick="removeOtherBonus(this)" style="width:32px;height:32px;border:none;background:#fee2e2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:16px">&#x2715;</button>';container.appendChild(row);}function removeOtherBonus(btn){var row=btn.parentElement;if(document.querySelectorAll('#otherBonusRows .other-bonus-row').length>1)row.remove();}function buildMonthRows(){
   var tbody=document.getElementById('monthRows');
   tbody.innerHTML='';
   MONTHS.forEach(function(m){
     var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+m+'</td><td><input type="number" id="sal_'+m+'" placeholder="0" min="0"></td><td><input type="number" id="ait_'+m+'" placeholder="0" min="0"></td>';
+    tr.innerHTML='<td>'+m+'</td><td><input type="text" inputmode="numeric" id="sal_'+m+'" placeholder="0"></td><td><input type="text" inputmode="numeric" id="ait_'+m+'" placeholder="0"></td>';
     tbody.appendChild(tr);
   });
 }
