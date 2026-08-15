@@ -526,7 +526,7 @@ function calculate(){
     suggBox='<div class="inv-suggestion-box"><div class="inv-suggestion-title">&#128200; Recommended Investment</div><div class="inv-already-ok">&#10003; Your gross tax is Tk. 0. No investment needed to reduce tax further.</div></div>';
   } else {
     var addlLine=additionalNeeded>0
-      ?'<div class="inv-suggestion-row"><span class="s-label">Additional investment still needed</span><span class="s-val red">Tk. '+fmt(additionalNeeded)+'</span></div>'
+      ?'<div class="inv-suggestion-row"><span class="s-label">Additional investment still needed</span><span class="s-val red" style="font-weight:700">Tk. '+fmt(additionalNeeded)+'</span></div>'
       :'<div class="inv-already-ok">&#10003; You have already invested enough. No additional investment needed.</div>';
     suggBox='<div class="inv-suggestion-box">'
       +'<div class="inv-suggestion-title">&#128200; Recommended Total Investment</div>'
