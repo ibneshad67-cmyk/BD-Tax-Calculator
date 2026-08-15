@@ -221,7 +221,7 @@ input[type=number]{-moz-appearance:textfield}
       </div>
       <div class="field" id="disabledKidsField" style="display:none">
         <label>Number of disabled dependents</label>
-        <input type="number" id="disabledKids" value="1" min="1" max="10" onchange="updateThreshold()" onwheel="this.blur()">
+        <input type="number" id="disabledKids" value="1" min="1" max="10" onchange="updateThreshold()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()">
         <div class="hint">Each dependent adds Tk. 50,000 to your tax-free threshold. Only one parent may claim this.</div>
       </div>
       <div class="field">
@@ -254,10 +254,10 @@ input[type=number]{-moz-appearance:textfield}
           <tr><th>Component</th><th>% of gross</th><th>Taxable</th></tr>
         </thead>
         <tbody>
-          <tr><td>Basic pay</td><td><input type="number" id="pBasic" value="60" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>House rent allowance</td><td><input type="number" id="pHouse" value="30" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>Medical allowance</td><td><input type="number" id="pMedical" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>Conveyance allowance</td><td><input type="number" id="pConvey" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>Basic pay</td><td><input type="number" id="pBasic" value="60" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>House rent allowance</td><td><input type="number" id="pHouse" value="30" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>Medical allowance</td><td><input type="number" id="pMedical" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
+          <tr><td>Conveyance allowance</td><td><input type="number" id="pConvey" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
         </tbody>
       </table>
       <div class="pct-total-row" id="pctTotal">Total: <strong style="color:#059669">100%</strong></div>
