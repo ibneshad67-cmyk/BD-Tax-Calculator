@@ -161,8 +161,9 @@ input[type=number]{-moz-appearance:textfield}
   <div class="progress-bar">
     <button class="step-btn active" onclick="goStep(1)" id="snav1"><span class="step-num" id="snum1">1</span> Personal info</button>
     <button class="step-btn" onclick="goStep(2)" id="snav2"><span class="step-num" id="snum2">2</span> Salary</button>
-    <button class="step-btn" onclick="goStep(3)" id="snav3"><span class="step-num" id="snum3">3</span> Investments</button>
-    <button class="step-btn" onclick="goStep(4)" id="snav4"><span class="step-num" id="snum4">4</span> Results</button>
+    <button class="step-btn" onclick="goStep(3)" id="snav3"><span class="step-num" id="snum3">3</span> Other Income</button>
+    <button class="step-btn" onclick="goStep(4)" id="snav4"><span class="step-num" id="snum4">4</span> Investments</button>
+    <button class="step-btn" onclick="goStep(5)" id="snav5"><span class="step-num" id="snum5">5</span> Results</button>
   </div>
 
   <!-- STEP 1 -->
@@ -285,12 +286,76 @@ input[type=number]{-moz-appearance:textfield}
 
     <div class="btn-row">
       <button class="btn-secondary" onclick="goStep(1)">&larr; Back</button>
-      <button class="btn-primary" onclick="goStep(3)">Continue to investments &rarr;</button>
+      <button class="btn-primary" onclick="goStep(3)">Continue to other income &rarr;</button>
     </div>
   </div>
 
-  <!-- STEP 3 -->
+  <!-- STEP 3: Other Income -->
   <div id="step3" class="hidden">
+    <div class="note-box">Enter any income other than salary for FY 2026-27. Leave fields blank or zero if not applicable. Tax-exempt income is shown for reference only and does not affect your tax calculation.</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Other Income Sources</div>
+        <div class="card-tag">AY 2027-28</div>
+      </div>
+
+      <div class="invest-item">
+        <div>
+          <div class="invest-label"><span class="invest-num">1</span>Business / Professional Income</div>
+          <div class="invest-hint">Fully taxable. The full amount is added to your taxable income and taxed under progressive slabs.</div>
+        </div>
+        <input class="invest-input" type="text" inputmode="numeric" id="oi_business" placeholder="0">
+      </div>
+
+      <div class="invest-item">
+        <div>
+          <div class="invest-label"><span class="invest-num">2</span>Rental Income</div>
+          <div class="invest-hint">A standard 30% deduction is applied for repair &amp; maintenance. Only 70% of rental income is added to taxable income.</div>
+        </div>
+        <input class="invest-input" type="text" inputmode="numeric" id="oi_rental" placeholder="0">
+      </div>
+
+      <div class="invest-item">
+        <div>
+          <div class="invest-label"><span class="invest-num">3</span>Dividend Income</div>
+          <div class="invest-hint">Subject to Final Tax at 15%. This amount is NOT added to progressive tax slabs. A separate dividend tax will be shown in results.</div>
+        </div>
+        <input class="invest-input" type="text" inputmode="numeric" id="oi_dividend" placeholder="0">
+      </div>
+
+      <div class="invest-item">
+        <div>
+          <div class="invest-label"><span class="invest-num">4</span>Gross Agricultural Income</div>
+          <div class="invest-hint">First Tk. 5,00,000 is exempt. Only the amount above Tk. 5,00,000 is added to taxable income.</div>
+        </div>
+        <input class="invest-input" type="text" inputmode="numeric" id="oi_agri" placeholder="0">
+      </div>
+
+      <div class="invest-item">
+        <div>
+          <div class="invest-label"><span class="invest-num">5</span>Other Financial Assets Income</div>
+          <div class="invest-hint">Bank interest, FDR interest, etc. These are subject to Final Tax (already deducted at source). Shown separately in results &mdash; not added to progressive slabs.</div>
+        </div>
+        <input class="invest-input" type="text" inputmode="numeric" id="oi_financial" placeholder="0">
+      </div>
+
+      <div class="invest-item" style="background:#fffbeb;border-radius:8px;padding:10px 14px;border:1px solid #fde68a">
+        <div>
+          <div class="invest-label"><span class="invest-num" style="background:#fef3c7;color:#92400e">6</span>Tax Exempted Income</div>
+          <div class="invest-hint" style="color:#92400e">For reference only &mdash; e.g. remittance income. This amount is completely excluded from tax calculations.</div>
+        </div>
+        <input class="invest-input" type="text" inputmode="numeric" id="oi_exempt" placeholder="0">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goStep(2)">&larr; Back</button>
+      <button class="btn-primary" onclick="goStep(4)">Continue to investments &rarr;</button>
+    </div>
+  </div>
+
+
+  <div id="step4" class="hidden">
     <div class="note-box">Enter annual investment amounts for FY 2026-27 (July 2026 - June 2027). Always enter the full projected annual total &mdash; the calculator works on a 12-month basis regardless of when you use it.</div>
     <div class="card">
       <div class="card-header">
@@ -339,16 +404,16 @@ input[type=number]{-moz-appearance:textfield}
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn-secondary" onclick="goStep(2)">&larr; Back</button>
+      <button class="btn-secondary" onclick="goStep(3)">&larr; Back</button>
       <button class="btn-primary" onclick="calculate()">Calculate my tax &rarr;</button>
     </div>
   </div>
 
   <!-- STEP 4 -->
-  <div id="step4" class="hidden">
+  <div id="step5" class="hidden">
     <div id="resultsContent"></div>
     <div class="btn-row no-print">
-      <button class="btn-secondary" onclick="goStep(3)">&larr; Edit investments</button>
+      <button class="btn-secondary" onclick="goStep(4)">&larr; Edit investments</button>
       <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
       <button class="btn-primary" onclick="goStep(1)">Start over</button>
     </div>
@@ -408,7 +473,7 @@ function addOtherBonus(){var container=document.getElementById('otherBonusRows')
 }
 
 function goStep(n){
-  [1,2,3,4].forEach(function(i){
+  [1,2,3,4,5].forEach(function(i){
     document.getElementById('step'+i).classList.toggle('hidden',i!==n);
     var btn=document.getElementById('snav'+i);
     var num=document.getElementById('snum'+i);
@@ -443,7 +508,16 @@ function calculate(){
   var totalOther=0;document.querySelectorAll('#otherBonusRows .other-bonus-row').forEach(function(row){var amt=parseFloat((row.querySelectorAll('input')[1].value||'0').replace(/,/g,''))||0;totalOther+=amt;});var totalBonus=v('bonusEid1')+v('bonusEid2')+totalOther;
   var totalIncome=totalSalary+totalBonus;
   var exempted=Math.min(totalIncome/3,500000);
-  var taxableIncome=Math.max(0,totalIncome-exempted);
+  var oiBusiness=parseFloat((document.getElementById('oi_business').value||'0').replace(/,/g,''))||0;
+  var oiRental=parseFloat((document.getElementById('oi_rental').value||'0').replace(/,/g,''))||0;
+  var oiDividend=parseFloat((document.getElementById('oi_dividend').value||'0').replace(/,/g,''))||0;
+  var oiAgri=parseFloat((document.getElementById('oi_agri').value||'0').replace(/,/g,''))||0;
+  var oiFinancial=parseFloat((document.getElementById('oi_financial').value||'0').replace(/,/g,''))||0;
+  var oiExempt=parseFloat((document.getElementById('oi_exempt').value||'0').replace(/,/g,''))||0;
+  var taxableRental=oiRental*0.70;
+  var taxableAgri=Math.max(0,oiAgri-500000);
+  var dividendTax=oiDividend*0.15;
+  var taxableIncome=Math.max(0,totalIncome-exempted)+oiBusiness+taxableRental+taxableAgri;
 
   var totalInv=0;
   for(var i=1;i<=10;i++){totalInv+=Math.min(v('inv'+i),INV_CAPS[i-1]);}
@@ -460,7 +534,7 @@ function calculate(){
   var slabDetail=result.detail;
   var netTax=Math.max(0,grossTax-eligibleRebate);
   var minTax=parseInt(document.getElementById('area').value);
-  var taxPayable=Math.max(netTax,minTax);
+  var taxPayable=Math.max(netTax,minTax)+dividendTax;
   var targetRebate=Math.max(0,grossTax-5000);
   var statMax=Math.min(taxableIncome*0.03,750000);
   var finalTargetRebate=Math.min(targetRebate,statMax);
@@ -499,6 +573,9 @@ function calculate(){
         '<div class="breakdown-row"><span class="lbl">Total salary (12 months)</span><span class="val">'+fmt(totalSalary)+'</span></div>'+
         bonusRow+
         '<div class="breakdown-row"><span class="lbl">Total income</span><span class="val">'+fmt(totalIncome)+'</span></div>'+
+        (oiBusiness>0?'<div class="breakdown-row"><span class="lbl">Business / Professional income</span><span class="val">'+fmt(oiBusiness)+'</span></div>':'')+
+        (oiRental>0?'<div class="breakdown-row"><span class="lbl">Rental income (70% taxable after 30% deduction)</span><span class="val">'+fmt(taxableRental)+'</span></div>':'')+
+        (taxableAgri>0?'<div class="breakdown-row"><span class="lbl">Agricultural income (above Tk. 5,00,000 exemption)</span><span class="val">'+fmt(taxableAgri)+'</span></div>':'')+
         '<div class="breakdown-row"><span class="lbl">Exempted income (lower of 1/3 or Tk. 5,00,000)</span><span class="val green">- '+fmt(exempted)+'</span></div>'+
         '<div class="breakdown-row total-row"><span class="lbl">Taxable income</span><span class="val blue" style="font-size:15px">'+fmt(taxableIncome)+'</span></div>'+
         '<div class="slab-section"><div class="slab-title">Tax slab calculation &nbsp;&middot;&nbsp; Tax-free threshold: '+fmt(threshold)+'</div>'+slabRows+'</div>'+
@@ -511,6 +588,9 @@ function calculate(){
         '</div>'+
         '<div class="breakdown-row"><span class="lbl">Net tax after rebate</span><span class="val">'+fmt(netTax)+'</span></div>'+
         '<div class="breakdown-row"><span class="lbl">Minimum tax (area of residence)</span><span class="val">'+fmt(minTax)+'</span></div>'+
+        (dividendTax>0?'<div class="breakdown-row"><span class="lbl">Dividend tax (Final Tax @ 15%)</span><span class="val orange">+ '+fmt(dividendTax)+'</span></div>':'')+
+        (oiFinancial>0?'<div class="breakdown-row"><span class="lbl">Other financial assets income (Final Tax deducted at source)</span><span class="val" style="color:#6b7280">'+fmt(oiFinancial)+' (excl. from slab)</span></div>':'')+
+        (oiExempt>0?'<div class="breakdown-row"><span class="lbl">Tax exempted income (reference only)</span><span class="val" style="color:#6b7280">'+fmt(oiExempt)+' (not taxed)</span></div>':'')+
         '<div class="breakdown-row total-row"><span class="lbl">Total tax payable</span><span class="val red" style="font-size:16px">'+fmt(taxPayable)+'</span></div>'+
       '</div>'+
     '</div>'+
@@ -539,7 +619,7 @@ function calculate(){
   }
   html+=suggBox;
   document.getElementById('resultsContent').innerHTML=html;
-  goStep(4);
+  goStep(5);
 }
 
 buildMonthRows();
