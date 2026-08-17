@@ -225,13 +225,11 @@ input[type=number]{-moz-appearance:textfield}
         <div class="hint">Each dependent adds Tk. 50,000 to your tax-free threshold. Only one parent may claim this.</div>
       </div>
       <div class="field">
-        <label>Area of residence</label>
-        <select id="area">
-          <option value="5000">Dhaka North / Dhaka South / Chattogram City Corporation</option>
-          <option value="4000">Other City Corporation</option>
-          <option value="3000">Outside City Corporation (municipality, upazila, rural)</option>
-          <option value="1000">First-time taxpayer (any area)</option>
-        </select>
+        <label>Taxpayer status</label>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+          <input type="checkbox" id="firstTimer" style="width:18px;height:18px;cursor:pointer">
+          <span style="font-size:14px;color:#374151">First-time taxpayer <span style="color:#6b7280;font-size:12px">(minimum tax Tk. 1,000 instead of Tk. 5,000)</span></span>
+        </div>
       </div>
       <div class="threshold-box">
         <div class="threshold-text" id="thresholdText">Tax-free threshold: Tk. 4,00,000 / year</div>
@@ -550,7 +548,7 @@ function calculate(){
   var grossTax=result.tax;
   var slabDetail=result.detail;
   var netTax=Math.max(0,grossTax-eligibleRebate);
-  var minTax=parseInt(document.getElementById('area').value);
+  var firstTimer=document.getElementById('firstTimer').checked;var minTax=firstTimer?1000:5000;
   var taxPayable=(taxableIncome<=threshold?0:Math.max(netTax,minTax))+dividendTax;
   var targetRebate=Math.max(0,grossTax-5000);
   var statMax=Math.min(taxableIncome*0.03,750000);
@@ -605,7 +603,7 @@ function calculate(){
           '<div class="rebate-detail-row'+(winnerIdx===2?' winner':'')+'">Maximum cap = '+fmt(rebateC)+(winnerIdx===2?' &larr; applied':'')+'</div>'+
         '</div>'+
         '<div class="breakdown-row"><span class="lbl">Net tax after rebate</span><span class="val">'+fmt(netTax)+'</span></div>'+
-        (taxableIncome<=threshold?'':'<div class="breakdown-row" style="opacity:0.5"><span class="lbl">Minimum tax (area of residence)</span><span class="val">'+fmt(minTax)+'</span></div>')+
+        (taxableIncome<=threshold?'':'<div class="breakdown-row" style="opacity:0.5"><span class="lbl">Minimum tax (flat rate)</span><span class="val">'+fmt(minTax)+'</span></div>')+
         (dividendTax>0?'<div class="breakdown-row"><span class="lbl">Dividend tax (Final Tax @ 15%)</span><span class="val orange">+ '+fmt(dividendTax)+'</span></div>':'')+
         (oiFinancial>0?'<div class="breakdown-row"><span class="lbl">Other financial assets income (Final Tax deducted at source)</span><span class="val" style="color:#6b7280">'+fmt(oiFinancial)+' (excl. from slab)</span></div>':'')+
         (oiExempt>0?'<div class="breakdown-row"><span class="lbl">Tax exempted income (reference only)</span><span class="val" style="color:#6b7280">'+fmt(oiExempt)+' (not taxed)</span></div>':'')+
@@ -636,6 +634,10 @@ function calculate(){
       +'</div>';
   }
   html+=suggBox;
+  var earlyFilingRebate=Math.min(taxPayable*0.05,25000);
+  var earlyFilingHtml='';
+  if(taxPayable>0){earlyFilingHtml='<div class="inv-suggestion-box" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#86efac;margin-top:12px"><div class="inv-suggestion-title">&#128197; Early Filing Incentive (July &ndash; September)</div><div class="inv-suggestion-row"><span class="s-label">File between Jul 1 &ndash; Sep 30 to get</span><span class="s-val green" style="font-weight:700">- '+fmt(earlyFilingRebate)+'</span></div><div class="inv-suggestion-row"><span class="s-label">Tax payable after early filing rebate</span><span class="s-val">'+fmt(Math.max(0,taxPayable-earlyFilingRebate))+'</span></div><div class="inv-suggestion-note">5% of tax payable, capped at Tk. 25,000. Not available after September 30.</div></div>';}
+  html+=earlyFilingHtml;
   document.getElementById('resultsContent').innerHTML=html;
   goStep(5);
 }
