@@ -551,7 +551,7 @@ function calculate(){
   var slabDetail=result.detail;
   var netTax=Math.max(0,grossTax-eligibleRebate);
   var minTax=parseInt(document.getElementById('area').value);
-  var taxPayable=(grossTax===0?0:Math.max(netTax,minTax))+dividendTax;
+  var taxPayable=(taxableIncome<=threshold?0:Math.max(netTax,minTax))+dividendTax;
   var targetRebate=Math.max(0,grossTax-5000);
   var statMax=Math.min(taxableIncome*0.03,750000);
   var finalTargetRebate=Math.min(targetRebate,statMax);
@@ -605,7 +605,7 @@ function calculate(){
           '<div class="rebate-detail-row'+(winnerIdx===2?' winner':'')+'">Maximum cap = '+fmt(rebateC)+(winnerIdx===2?' &larr; applied':'')+'</div>'+
         '</div>'+
         '<div class="breakdown-row"><span class="lbl">Net tax after rebate</span><span class="val">'+fmt(netTax)+'</span></div>'+
-        (grossTax===0?'':'<div class="breakdown-row" style="opacity:0.5"><span class="lbl">Minimum tax (area of residence)</span><span class="val">'+fmt(minTax)+'</span></div>')+
+        (taxableIncome<=threshold?'':'<div class="breakdown-row" style="opacity:0.5"><span class="lbl">Minimum tax (area of residence)</span><span class="val">'+fmt(minTax)+'</span></div>')+
         (dividendTax>0?'<div class="breakdown-row"><span class="lbl">Dividend tax (Final Tax @ 15%)</span><span class="val orange">+ '+fmt(dividendTax)+'</span></div>':'')+
         (oiFinancial>0?'<div class="breakdown-row"><span class="lbl">Other financial assets income (Final Tax deducted at source)</span><span class="val" style="color:#6b7280">'+fmt(oiFinancial)+' (excl. from slab)</span></div>':'')+
         (oiExempt>0?'<div class="breakdown-row"><span class="lbl">Tax exempted income (reference only)</span><span class="val" style="color:#6b7280">'+fmt(oiExempt)+' (not taxed)</span></div>':'')+
