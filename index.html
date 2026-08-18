@@ -550,7 +550,7 @@ function calculate(){
   var netTax=Math.max(0,grossTax-eligibleRebate);
   var firstTimer=document.getElementById('firstTimer').checked;var minTax=firstTimer?1000:5000;
   var taxPayable=(taxableIncome<=threshold?0:Math.max(netTax,minTax))+dividendTax;
-  var targetRebate=Math.max(0,grossTax-5000);
+  var targetRebate=Math.max(0,grossTax-minTax);
   var statMax=Math.min(taxableIncome*0.03,750000);
   var finalTargetRebate=Math.min(targetRebate,statMax);
   var recommendedInv=finalTargetRebate/0.10;
