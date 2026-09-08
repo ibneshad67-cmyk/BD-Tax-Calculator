@@ -347,7 +347,20 @@ input[type=number]{-moz-appearance:textfield}
 
       <div class="invest-item">
         <div>
-          <div class="invest-label"><span class="invest-num">5</span>Other Financial Assets Income</div>
+          <div class="invest-label"><span class="invest-num">5</span>Sanchayapatra / Savings Certificate Interest</div>
+          <div class="invest-hint">Interest income from savings certificates. Added to taxable income (slab rate). Source tax deducted (AIT) is adjustable against final tax liability.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;min-width:140px">
+          <input class="invest-input" type="text" inputmode="numeric" id="oi_sanchay" placeholder="0" oninput="autoSanchayAIT()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()">
+          <div style="font-size:10px;color:var(--text-secondary);text-align:right">Interest amount</div>
+          <input class="invest-input" type="text" inputmode="numeric" id="oi_sanchay_ait" placeholder="AIT (auto)" style="font-size:12px;color:var(--text-secondary)" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()">
+          <div style="font-size:10px;color:var(--text-secondary);text-align:right">AIT deducted (10%)</div>
+        </div>
+      </div>
+
+      <div class="invest-item">
+        <div>
+          <div class="invest-label"><span class="invest-num">6</span>Other Financial Assets Income</div>
           <div class="invest-hint">Bank interest, FDR interest, etc. These are subject to Final Tax (already deducted at source). Shown separately in results &mdash; not added to progressive slabs.</div>
         </div>
         <input class="invest-input" type="text" inputmode="numeric" id="oi_financial" placeholder="0">
@@ -355,7 +368,7 @@ input[type=number]{-moz-appearance:textfield}
 
       <div class="invest-item" style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-left:-0.5rem;margin-right:-0.5rem;padding:12px 0.5rem;">
         <div>
-          <div class="invest-label"><span class="invest-num" style="background:#fef3c7;color:#92400e">6</span>Tax Exempted Income</div>
+          <div class="invest-label"><span class="invest-num" style="background:#fef3c7;color:#92400e">7</span>Tax Exempted Income</div>
           <div class="invest-hint" style="color:#92400e">For reference only &mdash; e.g. remittance income. This amount is completely excluded from tax calculations.</div>
         </div>
         <input class="invest-input" type="text" inputmode="numeric" id="oi_exempt" placeholder="0">
@@ -513,6 +526,7 @@ function calcTax(income,threshold){
   return{tax:tax,detail:detail};
 }
 
+function autoSanchayAIT(){var amt=parseFloat((document.getElementById("oi_sanchay").value||"0").replace(/,/g,""))||0;var aitEl=document.getElementById("oi_sanchay_ait");if(aitEl.dataset.manual!=="1"){aitEl.value=amt>0?Math.round(amt*0.10).toLocaleString("en-IN"):"";}}
 function v(id){return parseFloat(document.getElementById(id).value)||0;}
 
 function calculate(){
@@ -526,12 +540,14 @@ function calculate(){
   var oiRental=parseFloat((document.getElementById('oi_rental').value||'0').replace(/,/g,''))||0;
   var oiDividend=parseFloat((document.getElementById('oi_dividend').value||'0').replace(/,/g,''))||0;
   var oiAgri=parseFloat((document.getElementById('oi_agri').value||'0').replace(/,/g,''))||0;
+  var oiSanchay=parseFloat((document.getElementById('oi_sanchay').value||'0').replace(/,/g,''))||0;
+  var oiSanchayAIT=parseFloat((document.getElementById('oi_sanchay_ait').value||'0').replace(/,/g,''))||0;
   var oiFinancial=parseFloat((document.getElementById('oi_financial').value||'0').replace(/,/g,''))||0;
   var oiExempt=parseFloat((document.getElementById('oi_exempt').value||'0').replace(/,/g,''))||0;
   var taxableRental=oiRental*0.70;
   var taxableAgri=Math.max(0,oiAgri-500000);
   var dividendTax=oiDividend*0.15;
-  var taxableIncome=Math.max(0,totalIncome-exempted)+oiBusiness+taxableRental+taxableAgri;
+  var taxableIncome=Math.max(0,totalIncome-exempted)+oiBusiness+taxableRental+taxableAgri+oiSanchay;
   var grandTotalIncome=totalIncome+oiBusiness+taxableRental+taxableAgri;
 
   var totalInv=0;
@@ -555,7 +571,8 @@ function calculate(){
   var finalTargetRebate=Math.min(targetRebate,statMax);
   var recommendedInv=finalTargetRebate/0.10;
   var additionalNeeded=Math.max(0,recommendedInv-totalInv);
-  var balance=taxPayable-totalAIT;
+  var totalAITAdj=totalAIT+oiSanchayAIT;
+  var balance=taxPayable-totalAITAdj;
   var perMonth=taxPayable/12;
   var aitPaidMonths=MONTHS.filter(function(m){return v('ait_'+m)>0;}).length;
   var remainingMonths=Math.max(0,12-aitPaidMonths);
@@ -580,7 +597,7 @@ function calculate(){
       '<div class="metric"><div class="metric-label">Tax rebate</div><div class="metric-value green">- '+fmt(eligibleRebate)+'</div><div class="metric-sub">'+winnerLabels[winnerIdx]+'</div></div>'+
       '<div class="metric"><div class="metric-label">Total Tax Payable</div><div class="metric-value red">'+fmt(taxPayable)+'</div><div class="metric-sub">Full year</div></div>'+
       '<div class="metric"><div class="metric-label">Per month deduction</div><div class="metric-value orange">'+fmt(perMonth)+'</div><div class="metric-sub">12-month basis</div></div>'+
-      '<div class="metric"><div class="metric-label">AIT paid so far</div><div class="metric-value">'+fmt(totalAIT)+'</div><div class="metric-sub">'+aitPaidMonths+' month'+(aitPaidMonths!==1?'s':'')+'</div></div>'+
+      '<div class="metric"><div class="metric-label">AIT paid so far</div><div class="metric-value">'+fmt(totalAITAdj)+'</div><div class="metric-sub">'+(aitPaidMonths>0||oiSanchayAIT>0?'incl. Sanchayapatra AIT':'0 months')+''+'</div></div>'+
       (grossTax>0?'<div class="metric"><div class="metric-label">Additional investment needed</div><div class="metric-value '+(additionalNeeded>0?'red':'green')+'">'+( additionalNeeded>0?fmt(additionalNeeded):'Tk. 0')+'</div><div class="metric-sub">'+(additionalNeeded>0?'To reach min. tax':'Already optimised &#10003;')+'</div></div>':'')+
     '</div>'+
     '<div class="breakdown-card">'+
@@ -589,6 +606,7 @@ function calculate(){
         '<div class="breakdown-row"><span class="lbl">Total salary (12 months)</span><span class="val">'+fmt(totalSalary)+'</span></div>'+
         bonusRow+
         '<div class="breakdown-row"><span class="lbl">Total income</span><span class="val">'+fmt(totalIncome)+'</span></div>'+
+        (oiSanchay>0?'<div class="breakdown-row"><span class="lbl">Sanchayapatra / Savings Certificate interest</span><span class="val">'+fmt(oiSanchay)+'</span></div>':'')+
         (oiBusiness>0?'<div class="breakdown-row"><span class="lbl">Business / Professional income</span><span class="val">'+fmt(oiBusiness)+'</span></div>':'')+
         (oiRental>0?'<div class="breakdown-row"><span class="lbl">Rental income (70% taxable after 30% deduction)</span><span class="val">'+fmt(taxableRental)+'</span></div>':'')+
         (taxableAgri>0?'<div class="breakdown-row"><span class="lbl">Agricultural income (above Tk. 5,00,000 exemption)</span><span class="val">'+fmt(taxableAgri)+'</span></div>':'')+
