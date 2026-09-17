@@ -602,7 +602,7 @@ function calculate(){
       '<div class="metric"><div class="metric-label">Tax rebate</div><div class="metric-value green">- '+fmt(eligibleRebate)+'</div><div class="metric-sub">'+winnerLabels[winnerIdx]+'</div></div>'+
       '<div class="metric"><div class="metric-label">Total Tax Payable</div><div class="metric-value red">'+fmt(taxPayable)+'</div><div class="metric-sub">Full year</div></div>'+
       '<div class="metric"><div class="metric-label">Per month deduction</div><div class="metric-value orange">'+fmt(perMonth)+'</div><div class="metric-sub">12-month basis</div></div>'+
-      '<div class="metric"><div class="metric-label">AIT paid so far</div><div class="metric-value">'+fmt(totalAITAdj)+'</div><div class="metric-sub">'+(aitPaidMonths>0||oiSanchayAIT>0?'incl. Sanchayapatra AIT':'0 months')+''+'</div></div>'+
+      '<div class="metric"><div class="metric-label">AIT paid so far</div><div class="metric-value">'+fmt(totalAITAdj)+'</div><div class="metric-sub">'+(aitPaidMonths>0||oiSanchayAIT>0||oiFinancialAIT>0?'incl. source AIT':'0 months')+''+'</div></div>'+
       (grossTax>0?'<div class="metric"><div class="metric-label">Additional investment needed</div><div class="metric-value '+(additionalNeeded>0?'red':'green')+'">'+( additionalNeeded>0?fmt(additionalNeeded):'Tk. 0')+'</div><div class="metric-sub">'+(additionalNeeded>0?'To reach min. tax':'Already optimised &#10003;')+'</div></div>':'')+
     '</div>'+
     '<div class="breakdown-card">'+
@@ -612,6 +612,7 @@ function calculate(){
         bonusRow+
         '<div class="breakdown-row"><span class="lbl">Total income</span><span class="val">'+fmt(totalIncome)+'</span></div>'+
         (oiSanchay>0?'<div class="breakdown-row"><span class="lbl">Sanchayapatra / Savings Certificate interest</span><span class="val">'+fmt(oiSanchay)+'</span></div>':'')+
+        (oiFinancial>0?'<div class="breakdown-row"><span class="lbl">Other financial assets income</span><span class="val">'+fmt(oiFinancial)+'</span></div>':'')+
         (oiBusiness>0?'<div class="breakdown-row"><span class="lbl">Business / Professional income</span><span class="val">'+fmt(oiBusiness)+'</span></div>':'')+
         (oiRental>0?'<div class="breakdown-row"><span class="lbl">Rental income (70% taxable after 30% deduction)</span><span class="val">'+fmt(taxableRental)+'</span></div>':'')+
         (taxableAgri>0?'<div class="breakdown-row"><span class="lbl">Agricultural income (above Tk. 5,00,000 exemption)</span><span class="val">'+fmt(taxableAgri)+'</span></div>':'')+
