@@ -349,6 +349,7 @@ input[type=number]{-moz-appearance:textfield}
         <div>
           <div class="invest-label"><span class="invest-num">5</span>Sanchayapatra / Savings Certificate Interest</div>
           <div class="invest-hint">Interest income from savings certificates. Added to taxable income (slab rate). Source tax deducted (AIT) is adjustable against final tax liability.</div>
+          <div class="invest-hint" style="margin-top:4px">Enter the gross interest amount before AIT deduction. The system will automatically calculate 10% AIT. Alternatively, you may enter the gross interest amount and manually provide the actual AIT deducted.</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:6px;min-width:140px">
           <input class="invest-input" type="text" inputmode="numeric" id="oi_sanchay" placeholder="0" oninput="autoSanchayAIT()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()">
