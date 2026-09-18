@@ -611,13 +611,14 @@ function calculate(){
         '<div class="breakdown-row"><span class="lbl">Total salary (12 months)</span><span class="val">'+fmt(totalSalary)+'</span></div>'+
         bonusRow+
         '<div class="breakdown-row"><span class="lbl">Total income</span><span class="val">'+fmt(totalIncome)+'</span></div>'+
+        '<div class="breakdown-row"><span class="lbl">Exempted income (lower of 1/3 or Tk. 5,00,000)</span><span class="val green">- '+fmt(exempted)+'</span></div>'+
+        '<div class="breakdown-row"><span class="lbl">Taxable income from salary</span><span class="val">'+fmt(Math.max(0,totalIncome-exempted))+'</span></div>'+
         (oiSanchay>0?'<div class="breakdown-row"><span class="lbl">Sanchayapatra / Savings Certificate interest</span><span class="val">'+fmt(oiSanchay)+'</span></div>':'')+
         (oiFinancial>0?'<div class="breakdown-row"><span class="lbl">Other financial assets income</span><span class="val">'+fmt(oiFinancial)+'</span></div>':'')+
         (oiBusiness>0?'<div class="breakdown-row"><span class="lbl">Business / Professional income</span><span class="val">'+fmt(oiBusiness)+'</span></div>':'')+
         (oiRental>0?'<div class="breakdown-row"><span class="lbl">Rental income (70% taxable after 30% deduction)</span><span class="val">'+fmt(taxableRental)+'</span></div>':'')+
         (taxableAgri>0?'<div class="breakdown-row"><span class="lbl">Agricultural income (above Tk. 5,00,000 exemption)</span><span class="val">'+fmt(taxableAgri)+'</span></div>':'')+
-        '<div class="breakdown-row"><span class="lbl">Exempted income (lower of 1/3 or Tk. 5,00,000)</span><span class="val green">- '+fmt(exempted)+'</span></div>'+
-        '<div class="breakdown-row total-row"><span class="lbl">Taxable Income</span><span class="val blue" style="font-size:15px">'+fmt(taxableIncome)+'</span></div>'+
+        '<div class="breakdown-row total-row"><span class="lbl">Total Taxable Income</span><span class="val blue" style="font-size:15px">'+fmt(taxableIncome)+'</span></div>'+
         '<div class="slab-section"><div class="slab-title">Tax slab calculation &nbsp;&middot;&nbsp; Tax-free threshold: '+fmt(threshold)+'</div>'+slabRows+'</div>'+
         '<div class="breakdown-row total-row"><span class="lbl">Gross Tax</span><span class="val blue" style="font-size:15px">'+fmt(grossTax)+'</span></div>'+
         '<div class="breakdown-row"><span class="lbl">Tax rebate ('+winnerLabels[winnerIdx]+' applied)</span><span class="val green">- '+fmt(eligibleRebate)+'</span></div>'+
@@ -629,7 +630,6 @@ function calculate(){
         '<div class="breakdown-row"><span class="lbl">Net tax after rebate</span><span class="val">'+fmt(netTax)+'</span></div>'+
         (taxableIncome<=threshold?'':'<div class="breakdown-row" style="opacity:0.5"><span class="lbl">Minimum tax (flat rate)</span><span class="val">'+fmt(minTax)+'</span></div>')+
         (dividendTax>0?'<div class="breakdown-row"><span class="lbl">Dividend tax (Final Tax @ 15%)</span><span class="val orange">+ '+fmt(dividendTax)+'</span></div>':'')+
-        (oiFinancial>0?'<div class="breakdown-row"><span class="lbl">Other financial assets income (slab rate, AIT adjustable)</span><span class="val">'+fmt(oiFinancial)+'</span></div>':'')+
         (oiExempt>0?'<div class="breakdown-row"><span class="lbl">Tax exempted income (reference only)</span><span class="val" style="color:#6b7280">'+fmt(oiExempt)+' (not taxed)</span></div>':'')+
         '<div class="breakdown-row total-row"><span class="lbl">Total Tax Payable</span><span class="val red" style="font-size:16px">'+fmt(taxPayable)+'</span></div>'+
       '</div>'+
