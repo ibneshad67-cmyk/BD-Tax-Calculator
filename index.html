@@ -289,6 +289,11 @@ input[type=number]{-moz-appearance:textfield}
           <label>Eid ul Azha bonus (Tk.)</label>
           <input type="text" inputmode="numeric" id="bonusEid2" placeholder="0">
         </div>
+        <div class="field">
+          <label>Other festival bonus (Tk.)</label>
+          <div style="font-size:11px;color:#94a3b8;margin-bottom:4px">e.g. Durga Puja, Christmas, Pohela Boishakh</div>
+          <input type="text" inputmode="numeric" id="bonusFestival" placeholder="0">
+        </div>
       </div>
 
       <div style="border-top:1px solid #f1f5f9;padding-top:1rem">
@@ -546,7 +551,7 @@ function calculate(){
   var threshold=getThreshold();
   var totalSalary=0,totalAIT=0;
   MONTHS.forEach(function(m){totalSalary+=v('sal_'+m);totalAIT+=v('ait_'+m);});
-  var totalOther=0;document.querySelectorAll('#otherBonusRows .other-bonus-row').forEach(function(row){var amt=parseFloat((row.querySelectorAll('input')[1].value||'0').replace(/,/g,''))||0;totalOther+=amt;});var totalBonus=v('bonusEid1')+v('bonusEid2')+totalOther;
+  var totalOther=0;document.querySelectorAll('#otherBonusRows .other-bonus-row').forEach(function(row){var amt=parseFloat((row.querySelectorAll('input')[1].value||'0').replace(/,/g,''))||0;totalOther+=amt;});var totalBonus=v('bonusEid1')+v('bonusEid2')+v('bonusFestival')+totalOther;
   var totalIncome=totalSalary+totalBonus;
   var exempted=Math.min(totalIncome/3,500000);
   var oiBusiness=parseFloat((document.getElementById('oi_business').value||'0').replace(/,/g,''))||0;
@@ -611,7 +616,7 @@ function calculate(){
       '<div class="metric"><div class="metric-label">Taxable Income</div><div class="metric-value blue">'+fmt(taxableIncome)+'</div><div class="metric-sub">After exemption</div></div>'+
       '<div class="metric"><div class="metric-label">Tax rebate</div><div class="metric-value green">- '+fmt(eligibleRebate)+'</div><div class="metric-sub">'+winnerLabels[winnerIdx]+'</div></div>'+
       '<div class="metric"><div class="metric-label">Total Tax Payable</div><div class="metric-value red">'+fmt(taxPayable)+'</div><div class="metric-sub">Full year</div></div>'+
-      '<div class="metric"><div class="metric-label">Per month deduction</div><div class="metric-value orange">'+fmt(perMonth)+'</div><div class="metric-sub">12-month basis</div></div>'+
+      (balance<0?'':'<div class="metric"><div class="metric-label">Per month deduction</div><div class="metric-value orange">'+fmt(perMonth)+'</div><div class="metric-sub">12-month basis</div></div>')+
       '<div class="metric"><div class="metric-label">AIT paid so far</div><div class="metric-value">'+fmt(totalAITAdj)+'</div><div class="metric-sub">'+(aitPaidMonths>0||oiSanchayAIT>0||oiFinancialAIT>0?'incl. source AIT':'0 months')+''+'</div></div>'+
       (grossTax>0?'<div class="metric"><div class="metric-label">Additional investment needed</div><div class="metric-value '+(additionalNeeded>0?'red':'green')+'">'+( additionalNeeded>0?fmt(additionalNeeded):'Tk. 0')+'</div><div class="metric-sub">'+(additionalNeeded>0?'To reach min. tax':'Already optimised &#10003;')+'</div></div>':'')+
     '</div>'+
