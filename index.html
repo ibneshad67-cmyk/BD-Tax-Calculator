@@ -298,6 +298,15 @@ input[type=number]{-moz-appearance:textfield}
       </div>
     </div>
 
+    <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:16px 18px;margin-top:1rem">
+      <div style="font-size:12px;font-weight:600;color:#1e40af;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px">&#x21BA; Prior Year Excess Tax (Carry Forward)</div>
+      <div style="font-size:13px;color:#374151;margin-bottom:12px">If you paid excess tax in the previous financial year and want to adjust it against this year&rsquo;s liability, enter the amount here. It will be treated as AIT and deducted from your total tax payable.</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <label style="font-size:13px;font-weight:500;color:#1e40af;white-space:nowrap">Excess tax from prior year (Tk.)</label>
+        <input class="invest-input" type="text" inputmode="numeric" id="prior_year_tax" placeholder="0" style="max-width:180px">
+      </div>
+    </div>
+
     <div class="btn-row">
       <button class="btn-secondary" onclick="goStep(1)">&larr; Back</button>
       <button class="btn-primary" onclick="goStep(3)">Continue to other income &rarr;</button>
@@ -548,6 +557,7 @@ function calculate(){
   var oiSanchayAIT=parseFloat((document.getElementById('oi_sanchay_ait').value||'0').replace(/,/g,''))||0;
   var oiFinancial=parseFloat((document.getElementById('oi_financial').value||'0').replace(/,/g,''))||0;
   var oiFinancialAIT=parseFloat((document.getElementById('oi_financial_ait').value||'0').replace(/,/g,''))||0;
+  var priorYearTax=parseFloat((document.getElementById('prior_year_tax').value||'0').replace(/,/g,''))||0;
   var oiExempt=parseFloat((document.getElementById('oi_exempt').value||'0').replace(/,/g,''))||0;
   var taxableRental=oiRental*0.70;
   var taxableAgri=Math.max(0,oiAgri-500000);
@@ -576,7 +586,7 @@ function calculate(){
   var finalTargetRebate=Math.min(targetRebate,statMax);
   var recommendedInv=finalTargetRebate/0.10;
   var additionalNeeded=Math.max(0,recommendedInv-totalInv);
-  var totalAITAdj=totalAIT+oiSanchayAIT+oiFinancialAIT;
+  var totalAITAdj=totalAIT+oiSanchayAIT+oiFinancialAIT+priorYearTax;
   var balance=taxPayable-totalAITAdj;
   var perMonth=taxPayable/12;
   var aitPaidMonths=MONTHS.filter(function(m){return v('ait_'+m)>0;}).length;
@@ -637,7 +647,7 @@ function calculate(){
     '<div class="ait-status'+(balance>=0?' pending':'')+'">'+
       '<div class="ait-status-title">'+(balance>=0?'Balance Tax Pending':'Tax refund due')+'</div>'+
       '<div class="ait-amount">'+(balance>=0?fmt(balance):'('+fmt(Math.abs(balance))+')')+'</div>'+
-      '<div class="ait-sub">'+(balance>=0?'Remaining tax to be paid':'Refundable - claim in your tax return')+'</div>'+
+      '<div class="ait-sub">'+(balance>=0?'Remaining Tax Payable After AIT Deduction':'Refundable - claim in your tax return')+'</div>'+
       suggRow+
     '</div>';
 
