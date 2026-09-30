@@ -62,7 +62,6 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;color:#1a202c;min-height:
 .comp-table input{width:80px;padding:6px 8px;border:1.5px solid #e2e8f0;border-radius:6px;font-size:13px;text-align:right;font-family:'Inter',sans-serif;background:#fff}
 .comp-table input:focus{outline:none;border-color:#2563eb}
 .badge-yes{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:#d1fae5;color:#059669}
-.pct-total-row{text-align:right;font-size:12px;color:#64748b;margin-top:8px;font-weight:500}
 .warn-box{background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px 12px;font-size:12px;color:#dc2626;margin-top:8px;display:none}
 .month-table{width:100%;border-collapse:collapse}
 .month-table th{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;padding:8px 10px;background:#f8fafc;border-bottom:1px solid #e2e8f0;text-align:right}
@@ -241,26 +240,7 @@ input[type=number]{-moz-appearance:textfield}
 
   <!-- STEP 2 -->
   <div id="step2" class="hidden">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Salary structure</div>
-        <div class="card-tag">% of gross salary</div>
-      </div>
-      <p style="font-size:13px;color:#64748b;margin-bottom:14px">Configure your company's salary breakdown. Components must total 100%.</p>
-      <table class="comp-table">
-        <thead>
-          <tr><th>Component</th><th>% of gross</th><th>Taxable</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Basic pay</td><td><input type="number" id="pBasic" value="60" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>House rent allowance</td><td><input type="number" id="pHouse" value="30" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>Medical allowance</td><td><input type="number" id="pMedical" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
-          <tr><td>Conveyance allowance</td><td><input type="number" id="pConvey" value="5" min="0" max="100" onchange="validatePct()" onwheel="this.blur()" onkeydown="if(event.key==='ArrowUp'||event.key==='ArrowDown')event.preventDefault()"></td><td><span class="badge-yes">Yes</span></td></tr>
-        </tbody>
-      </table>
-      <div class="pct-total-row" id="pctTotal">Total: <strong style="color:#059669">100%</strong></div>
-      <div class="warn-box" id="pctWarn">Percentages must add up to exactly 100%.</div>
-    </div>
+    
 
     <div class="card">
       <div class="card-header">
@@ -499,13 +479,7 @@ function updateThreshold(){
   document.getElementById('thresholdText').textContent='Tax-free threshold: '+fmt(thresh)+' / year';
 }
 
-function validatePct(){
-  var ids=['pBasic','pHouse','pMedical','pConvey'];
-  var total=ids.reduce(function(s,id){return s+(parseFloat(document.getElementById(id).value)||0);},0);
-  var ok=Math.abs(total-100)<0.1;
-  document.getElementById('pctTotal').innerHTML='Total: <strong style="color:'+(ok?'#059669':'#dc2626')+'">'+Math.round(total*10)/10+'%</strong>';
-  document.getElementById('pctWarn').style.display=ok?'none':'block';
-}
+
 
 function addOtherBonus(){var container=document.getElementById('otherBonusRows');var row=document.createElement('div');row.className='other-bonus-row';row.style='display:grid;grid-template-columns:1fr 150px 32px;gap:8px;align-items:center;margin-bottom:8px';row.innerHTML='<input type="text" placeholder="Description" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:Inter,sans-serif;width:100%"><input type="text" inputmode="numeric" placeholder="Amount (Tk.)" style="padding:7px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;text-align:right;font-family:Inter,sans-serif;width:100%"><button onclick="removeOtherBonus(this)" style="width:32px;height:32px;border:none;background:#fee2e2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:16px">&#x2715;</button>';container.appendChild(row);}function removeOtherBonus(btn){var row=btn.parentElement;if(document.querySelectorAll('#otherBonusRows .other-bonus-row').length>1)row.remove();}function buildMonthRows(){
   var tbody=document.getElementById('monthRows');
